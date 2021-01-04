@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AwsExternalDns 1`] = `
+Array [
+  Object {
+    "apiVersion": "rbac.authorization.k8s.io/v1beta1",
+    "kind": "ClusterRole",
+    "metadata": Object {
+      "name": "external-dns",
+    },
+    "rules": Array [
+      Object {
+        "apiGroups": Array [
+          "",
+        ],
+        "resources": Array [
+          "services",
+          "endpoints",
+          "pods",
+        ],
+        "verbs": Array [
+          "get",
+          "watch",
+          "list",
+        ],
+      },
+      Object {
+        "apiGroups": Array [
+          "extensions",
+          "networking.k8s.io",
+        ],
+        "resources": Array [
+          "ingresses",
+        ],
+        "verbs": Array [
+          "get",
+          "watch",
+          "list",
+        ],
+      },
+      Object {
+        "apiGroups": Array [
+          "",
+        ],
+        "resources": Array [
+          "nodes",
+        ],
+        "verbs": Array [
+          "list",
+          "watch",
+        ],
+      },
+    ],
+  },
+  Object {
+    "apiVersion": "rbac.authorization.k8s.io/v1beta1",
+    "kind": "ClusterRoleBinding",
+    "metadata": Object {
+      "name": "external-dns-viewer",
+    },
+    "roleRef": Object {
+      "apiGroup": "rbac.authorization.k8s.io",
+      "kind": "ClusterRole",
+      "name": "external-dns",
+    },
+    "subjects": Array [
+      Object {
+        "kind": "ServiceAccount",
+        "name": "external-dns",
+        "namespace": "kube-system",
+      },
+    ],
+  },
+  Object {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": Object {
+      "name": "external-dns",
+      "namespace": "kube-system",
+    },
+    "spec": Object {
+      "selector": Object {
+        "matchLabels": Object {
+          "app": "external-dns",
+        },
+      },
+      "strategy": Object {
+        "type": "Recreate",
+      },
+      "template": Object {
+        "metadata": Object {
+          "labels": Object {
+            "app": "external-dns",
+          },
+        },
+        "spec": Object {
+          "containers": Array [
+            Object {
+              "args": Array [
+                "--source=service",
+                "--source=ingress",
+                "--domain-filter=exmaple.com",
+                "--provider=aws",
+                "--policy=upsert-only",
+                "--aws-zone-type=private",
+                "--registry=txt",
+                "--txt-owner-id=external-dns",
+              ],
+              "image": "k8s.gcr.io/external-dns/external-dns:v0.7.3",
+              "name": "external-dns",
+            },
+          ],
+          "securityContext": Object {
+            "fsGroup": 65534,
+          },
+          "serviceAccountName": "external-dns",
+        },
+      },
+    },
+  },
+]
+`;
