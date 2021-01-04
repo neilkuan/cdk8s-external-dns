@@ -52,7 +52,7 @@ import * as eks from '@aws-cdk/aws-eks';
     // will help you add policy to IAM Role .
     AwsExternalDnsPolicyHelper.addPolicy(externalDnsServiceAccount);
 ```
-
+Also can see [example repo](https://github.com/guan840912/cdk8s-cdk-example)
 ## License
 
 Distributed under the [Apache 2.0](./LICENSE) license.
