@@ -6,8 +6,6 @@
     "url": "https://github.com/guan840912/cdk8s-external-dns.git"
   },
   "scripts": {
-    "projen": "npx projen",
-    "start": "npx projen start",
     "clobber": "npx projen clobber",
     "compile": "npx projen compile",
     "test:compile": "npx projen test:compile",
@@ -22,7 +20,9 @@
     "package": "npx projen package",
     "eslint": "npx projen eslint",
     "compat": "npx projen compat",
-    "docgen": "npx projen docgen"
+    "docgen": "npx projen docgen",
+    "projen": "npx projen",
+    "start": "npx projen start"
   },
   "author": {
     "name": "Neil Kuan",
@@ -50,10 +50,9 @@
     "jsii-diff": "^1.16.0",
     "jsii-docgen": "^1.8.8",
     "jsii-pacmak": "^1.16.0",
-    "jsii-release": "^0.2.10",
     "json-schema": "^0.3.0",
-    "projen": "^0.12.12",
-    "standard-version": "^9.0.0",
+    "projen": "^0.17.20",
+    "standard-version": "^9",
     "ts-jest": "^26.4.4",
     "typescript": "^3.9.5"
   },
@@ -80,8 +79,18 @@
   "license": "Apache-2.0",
   "version": "0.0.2",
   "jest": {
+    "testMatch": [
+      "**/__tests__/**/*.ts?(x)",
+      "**/?(*.)+(spec|test).ts?(x)"
+    ],
     "clearMocks": true,
     "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "clover",
+      "text"
+    ],
     "coverageDirectory": "coverage",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
@@ -89,9 +98,8 @@
     "testPathIgnorePatterns": [
       "/node_modules/"
     ],
-    "testMatch": [
-      "**/__tests__/**/*.ts?(x)",
-      "**/?(*.)+(spec|test).ts?(x)"
+    "watchPathIgnorePatterns": [
+      "/node_modules/"
     ],
     "reporters": [
       "default",
